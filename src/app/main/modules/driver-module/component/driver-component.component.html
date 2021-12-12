@@ -1,0 +1,51 @@
+<div class="container">
+  <fieldset [formGroup]="parentForm">
+    <label for="isInsured">
+      <input formControlName="isInsured" id="isInsured" type="checkbox"/> является страхователем
+    </label>
+    <div class="driver">
+      <div class="formControl">
+        <label for="lastName">Фамилия:</label>
+        <input formControlName="lastName" id="lastName" type="text"/>
+      </div>
+      <div class="formControl">
+        <label for="firstName">Имя:</label>
+        <input formControlName="firstName" id="firstName" type="text"/>
+      </div>
+      <div class="formControl">
+        <label for="middleName">Отчество (при наличии):</label>
+        <input formControlName="middleName" id="middleName" type="text"/>
+      </div>
+      <div class="formControl">
+        <label for="birthday">Дата рождения:</label>
+        <input formControlName="birthday" id="birthday" placeholder="_._._" type="text"/>
+      </div>
+
+      <div class="formControl">
+        <div class="driverLicenceLableBox">
+          <label for="driverLicence">В/У:</label
+          ><label for="foreigner"
+        ><input formControlName="foreigner" id="foreigner" type="checkbox"/>
+          <span> Иностранное ВУ</span>
+        </label>
+        </div>
+        <input formControlName="driverLicence" id="driverLicence" type="text"/>
+      </div>
+      <div class="formControl">
+        <label for="startExpDate">Дата начала стажа</label>
+        <input formControlName="startExpDate" id="startExpDate" type="text"/>
+      </div>
+      <div class="formControl">
+        <label for="oldDriverLicence">
+          <input formControlName="oldDriverLicence" id="oldDriverLicence" type="checkbox"/>
+          Добавить предыдущее ВУ
+        </label>
+      </div>
+      <div class="formControl">
+        <div class="coefficient">
+          <p>КБМ: <span> 1,55</span></p>
+        </div>
+      </div>
+    </div>
+  </fieldset>
+</div>

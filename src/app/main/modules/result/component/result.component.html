@@ -1,0 +1,47 @@
+<p>result works!</p>
+<button (click)="getDriverData()">Get Driver Data</button>
+
+<table *ngIf="driverData">
+  <tr>
+    <th>Ключ</th>
+    <th>Значение</th>
+  </tr>
+  <tr>
+    <td>Фамилия</td>
+    <td>{{driverData.firstName}}</td>
+  </tr>
+  <tr>
+    <td>Имя</td>
+    <td>{{driverData.lastName}}</td>
+  </tr>
+  <tr>
+    <td>Отчество</td>
+    <td>{{driverData.middleName}}</td>
+  </tr>
+  <tr>
+    <td>Дата рождения</td>
+    <td>{{driverData.birthday}}</td>
+  </tr>
+  <tr>
+    <td>Иностранец</td>
+    <td>{{driverData.foreigner}}</td>
+  </tr>
+  <tr>
+    <td>В/У:
+    </td>
+    <td>{{driverData.driverLicence}}</td>
+  </tr>
+  <tr>
+    <td>Дата начала стажа
+    </td>
+    <td>{{driverData.firstName}}</td>
+  </tr>
+  <tr>
+    <td>Предыдущее ВУ</td>
+    <td>{{driverData.oldDriverLicence}}</td>
+  </tr>
+  <tr>
+    <td>Является страхователем</td>
+    <td>{{driverData.isInsured}}</td>
+  </tr>
+</table>
