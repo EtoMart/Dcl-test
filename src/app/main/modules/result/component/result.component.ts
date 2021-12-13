@@ -17,5 +17,7 @@ export class ResultComponent implements OnInit {
     console.log(this.driverData);
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getDriverData();
+  }
 }

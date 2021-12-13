@@ -25,13 +25,25 @@ form {
   margin-bottom: 20px;
   margin-right: 20px;
 
-  input[type="text"] {
+  input[type="text"], input[type="date"] {
     margin-top: 5px;
-    border: none;
     height: 40px;
     border-radius: 3px;
     padding: 5px;
   }
+}
+
+.alert{
+  background: burlywood;
+  width: 100%;
+}
+
+input.ng-touched.ng-invalid {
+  border: solid red 2px;
+}
+
+input.ng-touched.ng-valid {
+  border: solid green 2px;
 }
 
 input {
