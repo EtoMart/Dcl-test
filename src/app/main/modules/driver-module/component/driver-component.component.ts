@@ -23,13 +23,13 @@ export class DriverComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private formService: FormService) {
   }
 
-  getInitForm(): void {
+  private getInitForm(): void {
     if (this.formService.initialForm.valid) {
       this.parentForm = this.formService.getInitialForm();
     }
   }
 
-  startExpDateValidator(from: string, to: string): (group: FormGroup) => { [p: string]: boolean } | null{
+  private startExpDateValidator(from: string, to: string): (group: FormGroup) => { [p: string]: boolean } | null{
     return (group: FormGroup): {[key: string]: boolean} => {
       const date1 = new Date(group.controls[from].value).getTime();
       const date2 = new Date(group.controls[to].value).getTime();

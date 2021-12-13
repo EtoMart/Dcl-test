@@ -12,7 +12,7 @@ export class ResultComponent implements OnInit {
 
   constructor(private formService: FormService) {}
 
-  getDriverData(): void {
+  public getDriverData(): void {
     this.driverData = this.formService.getForm();
     console.log(this.driverData);
   }
