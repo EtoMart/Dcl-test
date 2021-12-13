@@ -1,17 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DriverModuleModule } from './modules/driver-module/driver-module.module';
+import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
-    FormsModule,
     ReactiveFormsModule,
-    DriverModuleModule,
-    RouterModule,
-  ],
+    RouterModule
+  ]
 })
-export class MainModule {}
+export class MainModule {
+}
