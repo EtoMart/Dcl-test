@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormService } from '../../../services/form.service';
 
@@ -7,7 +7,7 @@ import { FormService } from '../../../services/form.service';
   templateUrl: './driver-component.component.html',
   styleUrls: ['./driver-component.component.scss']
 })
-export class DriverComponent implements OnInit {
+export class DriverComponent implements OnInit, OnDestroy {
   public parentForm = this.formBuilder.group({
     lastName: ['', [Validators.required]],
     firstName: ['', [Validators.required]],
@@ -46,5 +46,9 @@ export class DriverComponent implements OnInit {
 
   ngOnInit(): void {
     this.getInitForm();
+    console.log(this.parentForm);
+  }
+  ngOnDestroy(): void {
+    console.log(this.parentForm);
   }
 }

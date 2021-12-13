@@ -19,6 +19,7 @@ export class FormComponent implements OnInit {
   public submit(): void {
     this.formService.changeForm(this.driverComponent?.parentForm);
     this.router.navigate(['/result']);
+    console.log(this.driverComponent?.parentForm);
 
   }
 
