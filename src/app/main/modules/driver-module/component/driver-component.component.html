@@ -1,5 +1,5 @@
-<div class="container">
-  <fieldset [formGroup]="parentForm">
+<ng-container class="container" [formGroup]="parentForm">
+  <fieldset >
     <label for="isInsured">
       <input formControlName="isInsured" id="isInsured" type="checkbox" /> является страхователем
     </label>
@@ -49,7 +49,6 @@
       </div>
     </div>
   </fieldset>
-</div>
 <div class="alert alert-danger"
      *ngIf="parentForm.controls['lastName'].invalid && parentForm.controls['lastName'].touched">
   Не указана Фамилия
@@ -74,3 +73,4 @@
      *ngIf="parentForm.errors?.dates === true && parentForm.controls['startExpDate'].touched && parentForm.controls['birthday'].touched && parentForm.controls['startExpDate'].dirty">
   Проверьте дату рождения и дату начала стажа.
 </div>
+</ng-container>

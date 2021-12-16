@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DriverDataInterface } from '../interfaces/form-data';
+import { DriverComponent } from '../modules/driver-module/component/driver-component.component';
 
 
 @Injectable({
@@ -21,16 +22,21 @@ export class FormService {
 
   constructor(private fb: FormBuilder) {}
 
+  public count = [];
+
   public changeForm(form: FormGroup): void {
     this.initialForm = form;
-    console.log(this.initialForm.value);
+    console.log('change Form', this.initialForm.value);
+
   }
+
 
   public getForm(): DriverDataInterface {
     return this.initialForm.value;
   }
 
   public getInitialForm(): FormGroup {
+    console.log('count', this.count);
     return this.initialForm;
   }
 }

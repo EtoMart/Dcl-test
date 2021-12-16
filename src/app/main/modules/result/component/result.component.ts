@@ -14,7 +14,6 @@ export class ResultComponent implements OnInit {
 
   public getDriverData(): void {
     this.driverData = this.formService.getForm();
-    console.log(this.driverData);
   }
 
   ngOnInit(): void {
