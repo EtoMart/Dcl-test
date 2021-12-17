@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { FormService } from '../../../services/form.service';
+import { FormControlValueAccessorAdapter } from '../../../classes/form-control-value-accessor-adapter';
 
 
 
@@ -21,8 +22,9 @@ import { FormService } from '../../../services/form.service';
     },
   ]
 })
-export class DriverComponent {
-  public parentForm = this.formBuilder.group({
+export class DriverComponent extends FormControlValueAccessorAdapter implements OnInit, OnDestroy{
+
+  form: FormGroup = this.formBuilder.group({
     lastName: ['', [Validators.required]],
     firstName: ['', [Validators.required]],
     middleName: ['', []],
@@ -32,14 +34,16 @@ export class DriverComponent {
     startExpDate: ['', [Validators.required]],
     oldDriverLicence: [false, []],
     isInsured: [false, []],
-  }, {validators: this.startExpDateValidator('startExpDate', 'birthday'), updateOn: 'blur'});
+  }, {validators: this.startExpDateValidator('startExpDate', 'birthday')});
 
   constructor(private formBuilder: FormBuilder, private formService: FormService) {
+    super();
   }
+
 
   private getInitForm(): void {
     if (this.formService.initialForm.valid) {
-      this.parentForm = this.formService.getInitialForm();
+      this.form = this.formService.getInitialForm();
     }
   }
 
@@ -59,17 +63,16 @@ export class DriverComponent {
   }
 
   public pushDriverData(): void {
-    console.log(this.parentForm.value.lastName);
-    this.formService.count.push(this.parentForm.value.lastName);
+    console.log(this.form.value.lastName);
+    this.formService.count.push(this.form.value.lastName);
 
   }
-
-
-
   ngOnInit(): void {
-    this.getInitForm();
+    // this.getInitForm();
   }
+
   ngOnDestroy(): void {
-    console.log('destroy');
   }
+
+
 }

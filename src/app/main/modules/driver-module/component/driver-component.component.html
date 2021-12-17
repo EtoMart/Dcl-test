@@ -1,4 +1,4 @@
-<ng-container class="container" [formGroup]="parentForm">
+<ng-container class="container" [formGroup]="form">
   <fieldset >
     <label for="isInsured">
       <input formControlName="isInsured" id="isInsured" type="checkbox" /> является страхователем
@@ -50,27 +50,27 @@
     </div>
   </fieldset>
 <div class="alert alert-danger"
-     *ngIf="parentForm.controls['lastName'].invalid && parentForm.controls['lastName'].touched">
+     *ngIf="form.controls['lastName'].invalid && form.controls['lastName'].touched">
   Не указана Фамилия
 </div>
 <div class="alert alert-danger"
-     *ngIf="parentForm.controls['firstName'].invalid && parentForm.controls['firstName'].touched">
+     *ngIf="form.controls['firstName'].invalid && form.controls['firstName'].touched">
   Не указано Имя
 </div>
 <div class="alert alert-danger"
-     *ngIf="parentForm.controls['birthday'].invalid && parentForm.controls['birthday'].touched">
+     *ngIf="form.controls['birthday'].invalid && form.controls['birthday'].touched">
   Не указана Дата рождения
 </div>
 <div class="alert alert-danger"
-     *ngIf="parentForm.controls['driverLicence'].invalid && parentForm.controls['driverLicence'].touched">
+     *ngIf="form.controls['driverLicence'].invalid && form.controls['driverLicence'].touched">
   Не указано В/У
 </div>
 <div class="alert alert-danger"
-     *ngIf="parentForm.controls['startExpDate'].invalid && parentForm.controls['startExpDate'].touched">
+     *ngIf="form.controls['startExpDate'].invalid && form.controls['startExpDate'].touched">
   Не указана Дата начала стажа
 </div>
 <div class="alert alert-danger"
-     *ngIf="parentForm.errors?.dates === true && parentForm.controls['startExpDate'].touched && parentForm.controls['birthday'].touched && parentForm.controls['startExpDate'].dirty">
+     *ngIf="form.errors?.dates === true && form.controls['startExpDate'].touched && form.controls['birthday'].touched && form.controls['startExpDate'].dirty">
   Проверьте дату рождения и дату начала стажа.
 </div>
 </ng-container>

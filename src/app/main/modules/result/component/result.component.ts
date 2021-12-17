@@ -18,5 +18,8 @@ export class ResultComponent implements OnInit {
 
   ngOnInit(): void {
     this.getDriverData();
+    console.log('Initial form is Valid', this.formService.initialForm.valid);
+    console.log('Initial form', this.formService.initialForm);
+
   }
 }

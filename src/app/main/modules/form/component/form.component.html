@@ -1,7 +1,9 @@
 <div class="container">
-  <app-driver-component ></app-driver-component>
-  <app-driver-component></app-driver-component>
+  <form [formGroup]="parentForm"  >
+  <app-driver-component formControlName="driver1" ></app-driver-component>
+  <app-driver-component formControlName='driver2' ></app-driver-component>
 
-  <button (click)="submit()" [disabled]="this.driverComponent?.parentForm.invalid" type="submit">отправить</button>
+  <button (click)="submit()" [disabled]="this.parentForm.invalid" type="submit">отправить</button>
+  </form>
 </div>
 
