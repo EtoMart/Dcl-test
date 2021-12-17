@@ -31,6 +31,7 @@ export abstract class FormControlValueAccessorAdapter
       ? null
       : {
         invalidForm: {
+          form: this.form,
           value: this.form.value,
           message: `Nested form is invalid`,
         },

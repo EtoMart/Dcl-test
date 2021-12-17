@@ -50,6 +50,7 @@ export class FormComponent implements OnInit {
     console.log(this.parentForm.controls.driver1);
     this.parentForm.controls.driver1.markAsPending();
     console.log(this.parentForm.controls.driver1);
+    this.parentForm.updateValueAndValidity()
 
 
 
