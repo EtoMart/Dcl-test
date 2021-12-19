@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { DriverDataInterface } from '../interfaces/form-data';
 
 
@@ -10,22 +10,11 @@ export class FormService {
   public initialForm: FormGroup = this.fb.group({
     driver1: ['', ],
     driver2: ['', ],
-
-
-    // lastName: ['', [Validators.required]],
-    // firstName: ['', [Validators.required]],
-    // middleName: ['', []],
-    // birthday: ['', [Validators.required]],
-    // foreigner: [false, []],
-    // driverLicence: ['', [Validators.required]],
-    // startExpDate: ['', [Validators.required]],
-    // oldDriverLicence: [false, []],
-    // isInsured: [false, []]
   });
 
   constructor(private fb: FormBuilder) {}
 
-  public count = [];
+  public drivers = [];
 
   public changeForm(form: FormGroup): void {
     this.initialForm = form;
@@ -39,7 +28,7 @@ export class FormService {
   }
 
   public getInitialForm(): FormGroup {
-    console.log('count', this.count);
+    console.log('drivers', this.drivers);
     return this.initialForm;
   }
 }

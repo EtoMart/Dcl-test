@@ -29,10 +29,10 @@ export class FormComponent implements OnInit {
   }
 
   private getInitForm(): void {
-    console.log('Initial form is Valid', this.formService.initialForm.valid);
-    if (this.formService.initialForm.valid) {
-      this.parentForm = this.formService.getInitialForm();
-    }
+    // console.log('Initial form is Valid', this.formService.initialForm.valid);
+    // if (this.formService.initialForm.valid) {
+    //   this.parentForm = this.formService.getInitialForm();
+    // }
     const dataDriver1 = {
       birthday: '1111-11-11',
       driverLicence: '1231231',
@@ -44,17 +44,9 @@ export class FormComponent implements OnInit {
       oldDriverLicence: false,
       startExpDate: '2222-02-22',
     };
-    this.parentForm.controls.driver1.setValue(dataDriver1);
-    this.parentForm.controls.driver2.setValue(dataDriver1);
-    this.parentForm.controls.driver1.markAsTouched();
-    this.parentForm.updateValueAndValidity();
-    this.parentForm.controls.driver1.markAsTouched();
-    console.log(this.parentForm.controls.driver1);
-    this.parentForm.controls.driver1.clearAsyncValidators();
-    this.parentForm.updateValueAndValidity();
 
-
-
+    this.parentForm.controls.driver1.setValue(dataDriver1, { onlySelf: true, emitEvent: this });
+    this.parentForm.controls.driver2.patchValue(dataDriver1);
   }
 
   ngOnInit(): void {

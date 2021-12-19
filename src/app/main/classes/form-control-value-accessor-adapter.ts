@@ -10,9 +10,7 @@ export abstract class FormControlValueAccessorAdapter
 
   writeValue(val: any): void {
     if (val) {
-      console.log(123);
       this.form.setValue(val, { emitEvent: false });
-      console.log(123);
     }
   }
 
@@ -29,9 +27,8 @@ export abstract class FormControlValueAccessorAdapter
   }
 
   validate(c: AbstractControl): ValidationErrors | null {
-    console.log(this.form.valid);
-    console.log(this.form.status);
-    return this.form.status === 'VALID'
+
+    return this.form.valid
       ? null
       : {
         invalidForm: {

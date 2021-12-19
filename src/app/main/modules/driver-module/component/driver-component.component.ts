@@ -1,5 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  NG_VALIDATORS,
+  NG_VALUE_ACCESSOR,
+  Validators
+} from '@angular/forms';
 import { FormService } from '../../../services/form.service';
 import { FormControlValueAccessorAdapter } from '../../../classes/form-control-value-accessor-adapter';
 
@@ -59,8 +65,12 @@ export class DriverComponent extends FormControlValueAccessorAdapter implements 
     };
   }
 
-
   ngOnInit(): void {
+
+    setTimeout(() => {
+      console.log(123);
+      this.form.updateValueAndValidity();
+    }, 100);
   }
 
   ngOnDestroy(): void {
