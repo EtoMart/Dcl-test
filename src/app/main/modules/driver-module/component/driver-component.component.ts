@@ -40,11 +40,8 @@ export class DriverComponent extends FormControlValueAccessorAdapter implements 
     super();
   }
 
-
-  private getInitForm(): void {
-    if (this.formService.initialForm.valid) {
-      this.form = this.formService.getInitialForm();
-    }
+  writeValue(val: any): void {
+    this.form.setValue(val, { emitEvent: false });
   }
 
   private startExpDateValidator(from: string, to: string): (group: FormGroup) => { [p: string]: boolean } | null{
@@ -62,13 +59,8 @@ export class DriverComponent extends FormControlValueAccessorAdapter implements 
     };
   }
 
-  public pushDriverData(): void {
-    console.log(this.form.value.lastName);
-    this.formService.count.push(this.form.value.lastName);
 
-  }
   ngOnInit(): void {
-    // this.getInitForm();
   }
 
   ngOnDestroy(): void {

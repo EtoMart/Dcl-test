@@ -47,10 +47,11 @@ export class FormComponent implements OnInit {
     this.parentForm.controls.driver1.setValue(dataDriver1);
     this.parentForm.controls.driver2.setValue(dataDriver1);
     this.parentForm.controls.driver1.markAsTouched();
+    this.parentForm.updateValueAndValidity();
+    this.parentForm.controls.driver1.markAsTouched();
     console.log(this.parentForm.controls.driver1);
-    this.parentForm.controls.driver1.markAsPending();
-    console.log(this.parentForm.controls.driver1);
-    this.parentForm.updateValueAndValidity()
+    this.parentForm.controls.driver1.clearAsyncValidators();
+    this.parentForm.updateValueAndValidity();
 
 
 
