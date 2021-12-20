@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, AfterContentChecked} from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef, AfterContentChecked} from '@angular/core';
 import { FormService } from '../../../services/form.service';
 import { FormBuilder } from '@angular/forms';
 import { DriverDataInterface } from '../../../interfaces/form-data';
@@ -54,6 +54,7 @@ export class FormComponent implements OnInit, AfterContentChecked {
     const drivers: DriverDataInterface[] = [];
     if (this.driversCount === 0) {
       this.router.navigate(['/result']);
+      return;
     }
     for (const value of formValues) {
       if (value !== null){
