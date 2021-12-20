@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { DriverComponent } from '../../driver-module/component/driver-component.component';
 import { FormService } from '../../../services/form.service';
 import { FormBuilder } from '@angular/forms';
+import { DriverDataInterface } from '../../../interfaces/form-data';
 
 
 @Component({
@@ -21,9 +22,16 @@ export class FormComponent implements OnInit {
     driver2: [],
   }, );
 
+
   public submit(): void {
-    console.log(this.parentForm.value);
+    const drivers = Object.values( this.parentForm.value);
+    console.log(Object.values(drivers));
+    console.log(drivers);
+    console.log('subm drivers', drivers);
+    console.log(this.parentForm);
     this.formService.changeForm(this.parentForm);
+    this.formService.addDriver(drivers as DriverDataInterface[]);
+
     // this.router.navigate(['/result']);
 
   }
@@ -33,7 +41,7 @@ export class FormComponent implements OnInit {
     // if (this.formService.initialForm.valid) {
     //   this.parentForm = this.formService.getInitialForm();
     // }
-    const dataDriver1 = {
+    const dataDriver1: DriverDataInterface = {
       birthday: '1111-11-11',
       driverLicence: '1231231',
       firstName: '123123',

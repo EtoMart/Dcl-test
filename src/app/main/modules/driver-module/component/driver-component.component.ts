@@ -6,7 +6,6 @@ import {
   NG_VALUE_ACCESSOR,
   Validators
 } from '@angular/forms';
-import { FormService } from '../../../services/form.service';
 import { FormControlValueAccessorAdapter } from '../../../classes/form-control-value-accessor-adapter';
 
 
@@ -42,7 +41,7 @@ export class DriverComponent extends FormControlValueAccessorAdapter implements 
     isInsured: [false, []],
   }, {validators: this.startExpDateValidator('startExpDate', 'birthday')});
 
-  constructor(private formBuilder: FormBuilder, private formService: FormService) {
+  constructor(private formBuilder: FormBuilder) {
     super();
   }
 
@@ -75,6 +74,5 @@ export class DriverComponent extends FormControlValueAccessorAdapter implements 
 
   ngOnDestroy(): void {
   }
-
 
 }

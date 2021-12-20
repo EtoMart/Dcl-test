@@ -14,7 +14,16 @@ export class FormService {
 
   constructor(private fb: FormBuilder) {}
 
-  public drivers = [];
+  public drivers: DriverDataInterface[] = [];
+
+  public addDriver(drivers: DriverDataInterface[]): void {
+    console.log('addDriver', drivers);
+    for (const driver of drivers) {
+      this.drivers.push(driver);
+    }
+    console.log(this.drivers);
+
+  }
 
   public changeForm(form: FormGroup): void {
     this.initialForm = form;

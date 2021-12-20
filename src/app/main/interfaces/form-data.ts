@@ -3,9 +3,9 @@ export interface DriverDataInterface {
   firstName: string;
   middleName: string;
   birthday: string;
-  foreigner: string;
+  foreigner: boolean;
   driverLicence: string;
   startExpDate: string;
-  oldDriverLicence: string;
-  isInsured: string;
+  oldDriverLicence: boolean;
+  isInsured: boolean;
 }
