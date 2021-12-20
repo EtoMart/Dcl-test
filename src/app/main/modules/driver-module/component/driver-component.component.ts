@@ -45,10 +45,6 @@ export class DriverComponent extends FormControlValueAccessorAdapter implements 
     super();
   }
 
-  writeValue(val: any): void {
-    this.form.setValue(val, { emitEvent: false });
-  }
-
   private startExpDateValidator(from: string, to: string): (group: FormGroup) => { [p: string]: boolean } | null{
     return (group: FormGroup): {[key: string]: boolean} => {
       const date1 = new Date(group.controls[from].value).getTime();
@@ -67,7 +63,6 @@ export class DriverComponent extends FormControlValueAccessorAdapter implements 
   ngOnInit(): void {
 
     setTimeout(() => {
-      console.log(123);
       this.form.updateValueAndValidity();
     }, 100);
   }

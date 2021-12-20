@@ -1,5 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { DriverComponent } from '../../driver-module/component/driver-component.component';
+import { Component, OnInit, ViewChild, ChangeDetectorRef, AfterContentChecked} from '@angular/core';
 import { FormService } from '../../../services/form.service';
 import { FormBuilder } from '@angular/forms';
 import { DriverDataInterface } from '../../../interfaces/form-data';
@@ -10,57 +9,68 @@ import { DriverDataInterface } from '../../../interfaces/form-data';
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss'],
 })
-export class FormComponent implements OnInit {
-  @ViewChild(DriverComponent, { static: true })
-  public driverComponent: DriverComponent | undefined;
+export class FormComponent implements OnInit, AfterContentChecked {
 
-  constructor(private formService: FormService, private formBuilder: FormBuilder
+  driversCount = 1;
+
+  constructor(private formService: FormService, private formBuilder: FormBuilder, private cdRef: ChangeDetectorRef
   ) {}
 
   public parentForm = this.formBuilder.group({
     driver1: [],
     driver2: [],
+    driver3: [],
+    driver4: [],
+    driver5: [],
   }, );
+
+  public changeDriversCount(numberOfDrivers: number): void{
+    this.driversCount = numberOfDrivers;
+    console.log(this.parentForm);
+
+    for (let i = 5 ; i <= 1 ; i--){
+      this.parentForm.get(`driver${i}`).disable();
+    }
+
+    for (let i = 5 ; i <= this.driversCount ; i--){
+      if (this.driversCount === 5){
+        return;
+      }
+      this.parentForm.get(`driver${i}`).disable();
+    }
+  }
 
 
   public submit(): void {
-    const drivers = Object.values( this.parentForm.value);
-    console.log(Object.values(drivers));
+    const formValues: DriverDataInterface[] = Object.values(this.parentForm.value);
+    const drivers: DriverDataInterface[] = [];
+    for (const value of formValues) {
+      if (value !== null){
+        drivers.push(value);
+      }
+    }
+    this.formService.addDriver(drivers);
     console.log(drivers);
-    console.log('subm drivers', drivers);
-    console.log(this.parentForm);
-    this.formService.changeForm(this.parentForm);
-    this.formService.addDriver(drivers as DriverDataInterface[]);
 
     // this.router.navigate(['/result']);
 
   }
 
-  private getInitForm(): void {
-    // console.log('Initial form is Valid', this.formService.initialForm.valid);
-    // if (this.formService.initialForm.valid) {
-    //   this.parentForm = this.formService.getInitialForm();
-    // }
-    const dataDriver1: DriverDataInterface = {
-      birthday: '1111-11-11',
-      driverLicence: '1231231',
-      firstName: '123123',
-      foreigner: false,
-      isInsured: false,
-      lastName: '2222',
-      middleName: '123123',
-      oldDriverLicence: false,
-      startExpDate: '2222-02-22',
-    };
-
-    this.parentForm.controls.driver1.setValue(dataDriver1, { onlySelf: true, emitEvent: this });
-    this.parentForm.controls.driver2.patchValue(dataDriver1);
+  private getDrivers(): void {
+    const drivers = this.formService.getDrivers();
+    this.driversCount = drivers.length;
+    for (let i = 1; i < drivers.length + 1; i++) {
+      this.parentForm.get(`driver${i}`).setValue(drivers[i - 1]);
+    }
+    console.log(this.parentForm);
   }
 
   ngOnInit(): void {
-    this.getInitForm();
-    console.log('Initial form', this.formService.initialForm);
+    this.getDrivers();
+    this.cdRef.detectChanges();
+  }
 
-
+  ngAfterContentChecked(): void {
+    this.cdRef.detectChanges();
   }
 }
