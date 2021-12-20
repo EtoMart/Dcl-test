@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ChangeDetectorRef, AfterContentChecked} from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, AfterContentChecked} from '@angular/core';
 import { FormService } from '../../../services/form.service';
 import { FormBuilder } from '@angular/forms';
 import { DriverDataInterface } from '../../../interfaces/form-data';
