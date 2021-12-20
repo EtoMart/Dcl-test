@@ -12,10 +12,7 @@ export class FormService {
 
   public drivers: DriverDataInterface[] = [];
   public addDriver(drivers: DriverDataInterface[]): void {
-    for (const driver of drivers) {
-      this.drivers.push(driver);
-    }
-
+    this.drivers = drivers;
   }
 
   public getDrivers(): DriverDataInterface[] {

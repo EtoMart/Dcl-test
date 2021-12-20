@@ -16,7 +16,7 @@
     <app-driver-component *ngIf="driversCount > 3" formControlName='driver4'></app-driver-component>
     <app-driver-component *ngIf="driversCount > 4" formControlName='driver5'></app-driver-component>
 
-    <button (click)="submit()" [disabled]="this.parentForm.invalid" type="submit">отправить</button>
+    <button (click)="submit()" [disabled]= "(this.parentForm.invalid)" type="submit">отправить</button>
   </form>
 </div>
 
