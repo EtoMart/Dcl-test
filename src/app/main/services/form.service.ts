@@ -1,31 +1,31 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { DriverDataInterface } from '../interfaces/form-data';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FormService {
-  public initialForm: FormGroup = this.fb.group({
-    lastName: ['', []],
-    firstName: ['', []],
-    middleName: ['', []],
-    birthday: ['', []],
-    foreigner: ['', []],
-    driverLicence: ['', []],
-    startExpDate: ['', []],
-    oldDriverLicence: ['', []],
-    isInsured: ['', []],
-  });
+  constructor() {}
 
-  constructor(private fb: FormBuilder) {}
+  public drivers: DriverDataInterface[] = [
+    {
+      birthday: '',
+      driverLicence: '',
+      firstName: '',
+      foreigner: false,
+      isInsured: false,
+      lastName: '',
+      middleName: '',
+      oldDriverLicence: false,
+      startExpDate: '',
+    },
+  ];
 
-  public changeForm(form: FormGroup): void {
-    this.initialForm = form;
-    console.log(this.initialForm.value);
+  public addDriver(drivers: DriverDataInterface[]): void {
+    this.drivers = drivers;
   }
 
-  public getForm(): DriverDataInterface {
-    return this.initialForm.value;
+  public getDrivers(): DriverDataInterface[] {
+    return this.drivers;
   }
 }

@@ -1,5 +1,5 @@
-<div class="container">
-  <fieldset [formGroup]="parentForm">
+<ng-container class="container" [formGroup]="form">
+  <fieldset>
     <label for="isInsured">
       <input formControlName="isInsured" id="isInsured" type="checkbox"/> является страхователем
     </label>
@@ -8,6 +8,7 @@
         <label for="lastName">Фамилия:</label>
         <input formControlName="lastName" id="lastName" type="text"/>
       </div>
+
       <div class="formControl">
         <label for="firstName">Имя:</label>
         <input formControlName="firstName" id="firstName" type="text"/>
@@ -18,7 +19,7 @@
       </div>
       <div class="formControl">
         <label for="birthday">Дата рождения:</label>
-        <input formControlName="birthday" id="birthday" placeholder="_._._" type="text"/>
+        <input formControlName="birthday" id="birthday" type="date"/>
       </div>
 
       <div class="formControl">
@@ -33,7 +34,7 @@
       </div>
       <div class="formControl">
         <label for="startExpDate">Дата начала стажа</label>
-        <input formControlName="startExpDate" id="startExpDate" type="text"/>
+        <input formControlName="startExpDate" id="startExpDate" type="date"/>
       </div>
       <div class="formControl">
         <label for="oldDriverLicence">
@@ -43,9 +44,33 @@
       </div>
       <div class="formControl">
         <div class="coefficient">
-          <p>КБМ: <span> 1,55</span></p>
+          <p>КБМ: <span *ngIf="form.valid"> 1,55</span></p>
         </div>
       </div>
     </div>
   </fieldset>
-</div>
+  <div class="alert alert-danger"
+       *ngIf="form.controls['lastName'].invalid && form.controls['lastName'].touched">
+    Не указана Фамилия
+  </div>
+  <div class="alert alert-danger"
+       *ngIf="form.controls['firstName'].invalid && form.controls['firstName'].touched">
+    Не указано Имя
+  </div>
+  <div class="alert alert-danger"
+       *ngIf="form.controls['birthday'].invalid && form.controls['birthday'].touched">
+    Не указана Дата рождения
+  </div>
+  <div class="alert alert-danger"
+       *ngIf="form.controls['driverLicence'].invalid && form.controls['driverLicence'].touched">
+    Не указано В/У
+  </div>
+  <div class="alert alert-danger"
+       *ngIf="form.controls['startExpDate'].invalid && form.controls['startExpDate'].touched">
+    Не указана Дата начала стажа
+  </div>
+  <div class="alert alert-danger"
+       *ngIf="form.errors?.dates === true && form.controls['startExpDate'].touched && form.controls['birthday'].touched && form.controls['startExpDate'].dirty">
+    Проверьте дату рождения и дату начала стажа.
+  </div>
+</ng-container>

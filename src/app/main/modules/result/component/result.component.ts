@@ -8,14 +8,15 @@ import { DriverDataInterface } from '../../../interfaces/form-data';
   styleUrls: ['./result.component.scss'],
 })
 export class ResultComponent implements OnInit {
-  driverData: DriverDataInterface;
+  driversData: DriverDataInterface[];
 
   constructor(private formService: FormService) {}
 
-  getDriverData(): void {
-    this.driverData = this.formService.getForm();
-    console.log(this.driverData);
+  public getDriverData(): void {
+    this.driversData = this.formService.getDrivers();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getDriverData();
+  }
 }

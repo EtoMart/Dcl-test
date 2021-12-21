@@ -1,17 +1,23 @@
 <div class="container">
-  <app-driver-component></app-driver-component>
-  <button (click)="submit()" type="submit">отправить</button>
-</div>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+  <form [formGroup]="parentForm">
 
-<div>
-  <br>
-  End ViewChild
+    <dir class="driversCount">
+      <button (click)="changeDriversCount(1)">1</button>
+      <button (click)="changeDriversCount(2)">2</button>
+      <button (click)="changeDriversCount(3)">3</button>
+      <button (click)="changeDriversCount(4)">4</button>
+      <button (click)="changeDriversCount(5)">5</button>
+      <button (click)="changeDriversCount(0)">Без ограничений</button>
+    </dir>
+
+    <app-driver-component *ngIf="driversCount > 0" formControlName="driver1"></app-driver-component>
+    <app-driver-component *ngIf="driversCount > 1" formControlName='driver2'></app-driver-component>
+    <app-driver-component *ngIf="driversCount > 2" formControlName='driver3'></app-driver-component>
+    <app-driver-component *ngIf="driversCount > 3" formControlName='driver4'></app-driver-component>
+    <app-driver-component *ngIf="driversCount > 4" formControlName='driver5'></app-driver-component>
+
+    <button (click)="submit()" [disabled]="(this.parentForm.invalid)" routerLink="/result" type="button">отправить
+    </button>
+  </form>
 </div>
-<pre>{{ this.driverComponent.parentForm?.value  |json}}</pre>
 

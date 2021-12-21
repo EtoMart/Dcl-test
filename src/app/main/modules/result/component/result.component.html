@@ -1,7 +1,4 @@
-<p>result works!</p>
-<button (click)="getDriverData()">Get Driver Data</button>
-
-<table *ngIf="driverData">
+<table *ngFor=" let driverData of this.driversData">
   <tr>
     <th>Ключ</th>
     <th>Значение</th>
@@ -34,7 +31,7 @@
   <tr>
     <td>Дата начала стажа
     </td>
-    <td>{{driverData.firstName}}</td>
+    <td>{{driverData.startExpDate}}</td>
   </tr>
   <tr>
     <td>Предыдущее ВУ</td>
