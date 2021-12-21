@@ -6,7 +6,7 @@ import { MainModule } from './main/main.module';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, MainModule ],
+  imports: [BrowserModule, AppRoutingModule, MainModule],
   providers: [],
   bootstrap: [AppComponent],
 })

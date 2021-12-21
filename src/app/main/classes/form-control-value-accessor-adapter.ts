@@ -1,9 +1,14 @@
-import { AbstractControl, ControlValueAccessor, FormGroup, ValidationErrors, Validator } from '@angular/forms';
-
+import {
+  AbstractControl,
+  ControlValueAccessor,
+  FormGroup,
+  ValidationErrors,
+  Validator,
+} from '@angular/forms';
 
 export abstract class FormControlValueAccessorAdapter
-  implements ControlValueAccessor, Validator {
-
+  implements ControlValueAccessor, Validator
+{
   abstract form: FormGroup;
 
   onTouched: () => void = () => {};
@@ -27,15 +32,14 @@ export abstract class FormControlValueAccessorAdapter
   }
 
   validate(c: AbstractControl): ValidationErrors | null {
-
     return this.form.valid
       ? null
       : {
-        invalidForm: {
-          form: this.form,
-          value: this.form.value,
-          message: `Nested form is invalid`,
-        },
-      };
+          invalidForm: {
+            form: this.form,
+            value: this.form.value,
+            message: `Nested form is invalid`,
+          },
+        };
   }
 }

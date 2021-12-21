@@ -8,6 +8,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [FormComponent],
-  imports: [CommonModule, FormRoutingModule, DriverModule, ReactiveFormsModule]
+  imports: [CommonModule, FormRoutingModule, DriverModule, ReactiveFormsModule],
 })
 export class FormModule {}
