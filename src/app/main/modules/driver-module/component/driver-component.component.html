@@ -19,7 +19,7 @@
       </div>
       <div class="formControl">
         <label for="birthday">Дата рождения:</label>
-        <input formControlName="birthday" id="birthday" type="date"/>
+        <input [ngClass]="{'custom-invalid': form.errors?.dates === true && form.controls['startExpDate'].touched && form.controls['birthday'].touched && form.controls['startExpDate'].dirty}" formControlName="birthday" id="birthday" type="date"/>
       </div>
 
       <div class="formControl">
@@ -34,7 +34,7 @@
       </div>
       <div class="formControl">
         <label for="startExpDate">Дата начала стажа</label>
-        <input formControlName="startExpDate" id="startExpDate" type="date"/>
+        <input [ngClass]="{'custom-invalid': form.errors?.dates === true && form.controls['startExpDate'].touched && form.controls['birthday'].touched && form.controls['startExpDate'].dirty}" formControlName="startExpDate" id="startExpDate" type="date"/>
       </div>
       <div class="formControl">
         <label for="oldDriverLicence">

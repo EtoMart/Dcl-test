@@ -1,5 +1,4 @@
 <div class="container">
-  <form [formGroup]="parentForm">
 
     <dir class="driversCount">
       <button (click)="changeDriversCount(1)">1</button>
@@ -10,14 +9,12 @@
       <button (click)="changeDriversCount(0)">Без ограничений</button>
     </dir>
 
-    <app-driver-component *ngIf="driversCount > 0" formControlName="driver1"></app-driver-component>
-    <app-driver-component *ngIf="driversCount > 1" formControlName='driver2'></app-driver-component>
-    <app-driver-component *ngIf="driversCount > 2" formControlName='driver3'></app-driver-component>
-    <app-driver-component *ngIf="driversCount > 3" formControlName='driver4'></app-driver-component>
-    <app-driver-component *ngIf="driversCount > 4" formControlName='driver5'></app-driver-component>
+  <div *ngFor="let driver of drivers">
+    <app-driver-component #driverComponent ></app-driver-component>
+  </div>
 
-    <button (click)="submit()" [disabled]="(this.parentForm.invalid)" routerLink="/result" type="button">отправить
+
+    <button (click)="submit()"  type="button">отправить
     </button>
-  </form>
 </div>
 

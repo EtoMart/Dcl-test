@@ -38,12 +38,17 @@ form {
   width: 100%;
 }
 
-input.ng-touched.ng-invalid {
+input.ng-touched.ng-valid {
+  border: solid green 2px;
+}
+
+input.ng-touched.ng-invalid,
+{
   border: solid red 2px;
 }
 
-input.ng-touched.ng-valid {
-  border: solid green 2px;
+.custom-invalid {
+  border: solid red 2px !important;
 }
 
 input {

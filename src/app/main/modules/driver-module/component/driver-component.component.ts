@@ -2,31 +2,16 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
-  NG_VALIDATORS,
-  NG_VALUE_ACCESSOR,
   Validators,
 } from '@angular/forms';
-import { FormControlValueAccessorAdapter } from '../../../classes/form-control-value-accessor-adapter';
 
 @Component({
   selector: 'app-driver-component',
   templateUrl: './driver-component.component.html',
   styleUrls: ['./driver-component.component.scss'],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: DriverComponent,
-      multi: true,
-    },
-    {
-      provide: NG_VALIDATORS,
-      useExisting: DriverComponent,
-      multi: true,
-    },
-  ],
+
 })
 export class DriverComponent
-  extends FormControlValueAccessorAdapter
   implements OnInit, OnDestroy
 {
   form: FormGroup = this.formBuilder.group(
@@ -45,7 +30,6 @@ export class DriverComponent
   );
 
   constructor(private formBuilder: FormBuilder) {
-    super();
   }
 
   private startExpDateValidator(
