@@ -1,42 +1,51 @@
 import {
-  AfterContentChecked,
+  AfterContentChecked, AfterContentInit, AfterViewInit,
   ChangeDetectorRef,
-  Component,
-  OnInit, Query, QueryList, ViewChildren,
+  Component, OnDestroy,
+  OnInit, QueryList, ViewChildren,
 } from '@angular/core';
 import { FormService } from '../../../services/form.service';
-import {FormBuilder, FormGroup} from '@angular/forms';
-import { DriverDataInterface } from '../../../interfaces/form-data';
+import {FormGroup} from '@angular/forms';
 import {DriverComponent} from '../../driver-module/component/driver-component.component';
+import {Subscription} from 'rxjs';
+
 
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss'],
 })
-export class FormComponent implements OnInit, AfterContentChecked {
+export class FormComponent
+  implements
+    OnInit,
+    AfterContentChecked,
+    AfterContentInit,
+    AfterViewInit,
+    OnDestroy
+{
   @ViewChildren('driverComponent') driverComponents: QueryList<DriverComponent>;
-  drivers = [0];
+  drivers = [];
+  driversCount = [0];
+  subscriptions: Subscription = new Subscription();
 
   constructor(
     private formService: FormService,
-    private formBuilder: FormBuilder,
-    private cdRef: ChangeDetectorRef,
+    private cdRef: ChangeDetectorRef
   ) {}
 
   public changeDriversCount(numberOfDrivers: number): void {
     const tempArray = [];
-    for (let i = 0 ; i < numberOfDrivers; i++ ){
+    for (let i = 0; i < numberOfDrivers; i++) {
       tempArray.push(i);
     }
-    this.drivers = tempArray;
+    this.driversCount = tempArray;
   }
 
   private checkValidateOfForms(): boolean {
-    const components = this.driverComponents.toArray();
     let isValid = true;
+    const components = this.driverComponents.toArray();
     for (const component of components) {
-      if (!component.form.valid){
+      if (!component.form.valid) {
         this.markAsTouchedAllControls(component.form);
         isValid = false;
       }
@@ -51,45 +60,52 @@ export class FormComponent implements OnInit, AfterContentChecked {
     }
   }
 
-  public submit(): void  {
-    if (!this.checkValidateOfForms()){
-      return;
-    }
-    console.log(this.driverComponents);
+  private initialDriverChange(): void {
+    this.drivers = this.formService.getDrivers();
+    this.changeDriversCount(this.drivers.length);
   }
 
-
-  // public changeDriversCount(numberOfDrivers: number): void {
-  //   this.driversCount = numberOfDrivers;
-  //   for (let i = 1; i <= this.driversCount; i++) {
-  //     this.parentForm.get(`driver${i}`).enable();
-  //   }
-  //   for (let i = 5; i > this.driversCount; i--) {
-  //     if (this.driversCount === 5) {
-  //       return;
-  //     }
-  //     this.parentForm.get(`driver${i}`).disable();
-  //   }
-  //   this.parentForm.updateValueAndValidity();
-  // }
-
-  // private getDrivers(): void {
-  //   const drivers = this.formService.getDrivers();
-  //   this.driversCount = drivers.length;
-  //   for (let i = 1; i < drivers.length + 1; i++) {
-  //     this.parentForm.get(`driver${i}`).setValue(drivers[i - 1]);
-  //   }
-  // }
+  private getDrivers(): void {
+    const components =  this.driverComponents.toArray();
+    for (let i = 0 ; i < components.length; i++){
+          components[i].form.setValue(this.drivers[i]);
+          this.cdRef.detectChanges();
+        }
+  }
 
   public addDrivers(): void {
+    const components = this.driverComponents.toArray();
+    const formsData = [];
+    for (const component of components) {
+      formsData.push(component.form.value);
+    }
+    this.formService.addDriver(formsData);
   }
 
+  public submit(): void {
+    if (!this.checkValidateOfForms()) {
+      return;
+    }
+    this.addDrivers();
+  }
 
   ngOnInit(): void {
-    console.log(this.driverComponents);
+    this.initialDriverChange();
   }
 
-  ngAfterContentChecked(): void {
+  ngAfterContentInit(): void {
+  }
+
+  ngAfterViewInit(): void {
+    this.getDrivers();
     this.cdRef.detectChanges();
+
+
+
+  }
+
+  ngAfterContentChecked(): void {}
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }
