@@ -1,44 +1,48 @@
 <ng-container class="container" [formGroup]="form">
   <fieldset>
     <label for="isInsured">
-      <input formControlName="isInsured" id="isInsured" type="checkbox"/> является страхователем
+      <input formControlName="isInsured" id="isInsured" type="checkbox" /> является страхователем
     </label>
     <div class="driver">
       <div class="formControl">
         <label for="lastName">Фамилия:</label>
-        <input formControlName="lastName" id="lastName" type="text"/>
+        <input formControlName="lastName" id="lastName" type="text" />
       </div>
 
       <div class="formControl">
         <label for="firstName">Имя:</label>
-        <input formControlName="firstName" id="firstName" type="text"/>
+        <input formControlName="firstName" id="firstName" type="text" />
       </div>
       <div class="formControl">
         <label for="middleName">Отчество (при наличии):</label>
-        <input formControlName="middleName" id="middleName" type="text"/>
+        <input formControlName="middleName" id="middleName" type="text" />
       </div>
       <div class="formControl">
         <label for="birthday">Дата рождения:</label>
-        <input [ngClass]="{'custom-invalid': form.errors?.dates === true && form.controls['startExpDate'].touched && form.controls['birthday'].touched && form.controls['startExpDate'].dirty}" formControlName="birthday" id="birthday" type="date"/>
+        <input
+          [ngClass]="{'custom-invalid': form.errors?.dates === true && form.controls['startExpDate'].touched && form.controls['birthday'].touched && form.controls['startExpDate'].dirty}"
+          formControlName="birthday" id="birthday" type="date" />
       </div>
 
       <div class="formControl">
         <div class="driverLicenceLableBox">
           <label for="driverLicence">В/У:</label
           ><label for="foreigner"
-        ><input formControlName="foreigner" id="foreigner" type="checkbox"/>
+        ><input formControlName="foreigner" id="foreigner" type="checkbox" />
           <span> Иностранное ВУ</span>
         </label>
         </div>
-        <input formControlName="driverLicence" id="driverLicence" type="text"/>
+        <input formControlName="driverLicence" id="driverLicence" type="text" />
       </div>
       <div class="formControl">
         <label for="startExpDate">Дата начала стажа</label>
-        <input [ngClass]="{'custom-invalid': form.errors?.dates === true && form.controls['startExpDate'].touched && form.controls['birthday'].touched && form.controls['startExpDate'].dirty}" formControlName="startExpDate" id="startExpDate" type="date"/>
+        <input
+          [ngClass]="{'custom-invalid': form.errors?.dates === true && form.controls['startExpDate'].touched && form.controls['birthday'].touched && form.controls['startExpDate'].dirty}"
+          formControlName="startExpDate" id="startExpDate" type="date" />
       </div>
       <div class="formControl">
         <label for="oldDriverLicence">
-          <input formControlName="oldDriverLicence" id="oldDriverLicence" type="checkbox"/>
+          <input formControlName="oldDriverLicence" id="oldDriverLicence" type="checkbox" />
           Добавить предыдущее ВУ
         </label>
       </div>

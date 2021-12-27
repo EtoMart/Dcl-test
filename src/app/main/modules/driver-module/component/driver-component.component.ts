@@ -1,4 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -12,8 +16,7 @@ import {
 
 })
 export class DriverComponent
-  implements OnInit, OnDestroy
-{
+  implements OnInit, OnDestroy {
   form: FormGroup = this.formBuilder.group(
     {
       lastName: ['', [Validators.required]],
@@ -26,7 +29,7 @@ export class DriverComponent
       oldDriverLicence: [false, []],
       isInsured: [false, []],
     },
-    { validators: this.startExpDateValidator('startExpDate', 'birthday') }
+    { validators: this.startExpDateValidator('startExpDate', 'birthday') },
   );
 
   constructor(private formBuilder: FormBuilder) {
@@ -34,7 +37,7 @@ export class DriverComponent
 
   private startExpDateValidator(
     from: string,
-    to: string
+    to: string,
   ): (group: FormGroup) => { [p: string]: boolean } | null {
     return (group: FormGroup): { [key: string]: boolean } => {
       const date1 = new Date(group.controls[from].value).getTime();
@@ -56,5 +59,6 @@ export class DriverComponent
     }, 100);
   }
 
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void {
+  }
 }

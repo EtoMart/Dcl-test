@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
@@ -7,4 +7,5 @@ import { RouterModule } from '@angular/router';
   declarations: [],
   imports: [CommonModule, ReactiveFormsModule, RouterModule],
 })
-export class MainModule {}
+export class MainModule {
+}

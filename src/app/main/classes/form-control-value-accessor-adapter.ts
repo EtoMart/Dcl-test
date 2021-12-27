@@ -7,11 +7,11 @@ import {
 } from '@angular/forms';
 
 export abstract class FormControlValueAccessorAdapter
-  implements ControlValueAccessor, Validator
-{
+  implements ControlValueAccessor, Validator {
   abstract form: FormGroup;
 
-  onTouched: () => void = () => {};
+  onTouched: () => void = () => {
+  }
 
   writeValue(val: any): void {
     if (val) {
@@ -35,11 +35,11 @@ export abstract class FormControlValueAccessorAdapter
     return this.form.valid
       ? null
       : {
-          invalidForm: {
-            form: this.form,
-            value: this.form.value,
-            message: `Nested form is invalid`,
-          },
-        };
+        invalidForm: {
+          form: this.form,
+          value: this.form.value,
+          message: `Nested form is invalid`,
+        },
+      };
   }
 }

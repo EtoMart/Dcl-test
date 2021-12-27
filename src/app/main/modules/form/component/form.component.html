@@ -1,20 +1,20 @@
 <div class="container">
 
-    <dir class="driversCount">
-      <button (click)="changeDriversCount(1)">1</button>
-      <button (click)="changeDriversCount(2)">2</button>
-      <button (click)="changeDriversCount(3)">3</button>
-      <button (click)="changeDriversCount(4)">4</button>
-      <button (click)="changeDriversCount(5)">5</button>
-      <button (click)="changeDriversCount(0)">Без ограничений</button>
-    </dir>
+  <dir class="driversCount">
+    <button (click)="changeDriversCount(1)">1</button>
+    <button (click)="changeDriversCount(2)">2</button>
+    <button (click)="changeDriversCount(3)">3</button>
+    <button (click)="changeDriversCount(4)">4</button>
+    <button (click)="changeDriversCount(5)">5</button>
+    <button (click)="changeDriversCount(0)">Без ограничений</button>
+  </dir>
 
   <div *ngFor="let driver of driversCount">
-    <app-driver-component #driverComponent ></app-driver-component>
+    <app-driver-component #driverComponent></app-driver-component>
   </div>
 
 
-    <button (click)="submit()"  type="button">отправить
-    </button>
+  <button (click)="submit()" type="button">отправить
+  </button>
 </div>
 

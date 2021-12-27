@@ -1,13 +1,19 @@
 import {
-  AfterContentChecked, AfterContentInit, AfterViewInit,
+  AfterContentChecked,
+  AfterContentInit,
+  AfterViewInit,
   ChangeDetectorRef,
-  Component, OnDestroy,
-  OnInit, QueryList, ViewChildren,
+  Component,
+  OnDestroy,
+  OnInit,
+  QueryList,
+  ViewChildren,
 } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { FormService } from '../../../services/form.service';
-import {FormGroup} from '@angular/forms';
-import {DriverComponent} from '../../driver-module/component/driver-component.component';
-import {Subscription} from 'rxjs';
+import { DriverComponent } from '../../driver-module/component/driver-component.component';
 
 
 @Component({
@@ -16,13 +22,11 @@ import {Subscription} from 'rxjs';
   styleUrls: ['./form.component.scss'],
 })
 export class FormComponent
-  implements
-    OnInit,
+  implements OnInit,
     AfterContentChecked,
     AfterContentInit,
     AfterViewInit,
-    OnDestroy
-{
+    OnDestroy {
   @ViewChildren('driverComponent') driverComponents: QueryList<DriverComponent>;
   drivers = [];
   driversCount = [0];
@@ -30,8 +34,10 @@ export class FormComponent
 
   constructor(
     private formService: FormService,
-    private cdRef: ChangeDetectorRef
-  ) {}
+    private cdRef: ChangeDetectorRef,
+    private route: Router,
+  ) {
+  }
 
   public changeDriversCount(numberOfDrivers: number): void {
     const tempArray = [];
@@ -66,11 +72,11 @@ export class FormComponent
   }
 
   private getDrivers(): void {
-    const components =  this.driverComponents.toArray();
-    for (let i = 0 ; i < components.length; i++){
-          components[i].form.setValue(this.drivers[i]);
-          this.cdRef.detectChanges();
-        }
+    const components = this.driverComponents.toArray();
+    for (let i = 0; i < components.length; i++) {
+      components[i].form.setValue(this.drivers[i]);
+      this.cdRef.detectChanges();
+    }
   }
 
   public addDrivers(): void {
@@ -80,6 +86,7 @@ export class FormComponent
       formsData.push(component.form.value);
     }
     this.formService.addDriver(formsData);
+    this.route.navigateByUrl('/result');
   }
 
   public submit(): void {
@@ -99,12 +106,11 @@ export class FormComponent
   ngAfterViewInit(): void {
     this.getDrivers();
     this.cdRef.detectChanges();
-
-
-
   }
 
-  ngAfterContentChecked(): void {}
+  ngAfterContentChecked(): void {
+  }
+
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }
