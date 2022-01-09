@@ -1,7 +1,5 @@
-import {
-  Component,
-  OnInit,
-} from '@angular/core';
+import { Component,
+         OnInit } from '@angular/core';
 import { DriverDataInterface } from '../../../interfaces/form-data';
 import { FormService } from '../../../services/form.service';
 
@@ -13,8 +11,7 @@ import { FormService } from '../../../services/form.service';
 export class ResultComponent implements OnInit {
   driversData: DriverDataInterface[];
 
-  constructor(private formService: FormService) {
-  }
+  constructor(private formService: FormService) {}
 
   public getDriverData(): void {
     this.driversData = this.formService.getDrivers();

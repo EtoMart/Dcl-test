@@ -5,7 +5,8 @@ import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [],
-  imports: [CommonModule, ReactiveFormsModule, RouterModule],
+  imports: [CommonModule,
+            ReactiveFormsModule,
+            RouterModule],
 })
-export class MainModule {
-}
+export class MainModule {}

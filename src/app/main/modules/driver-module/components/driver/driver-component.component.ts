@@ -1,22 +1,20 @@
 import {
   Component,
-  OnDestroy,
-  OnInit,
+  OnInit
 } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
-  Validators,
+  Validators
 } from '@angular/forms';
+import { startExpDateValidator } from 'src/app/main/modules/driver-module/components/driver/validators/start-exp-date.validator';
 
 @Component({
   selector: 'app-driver-component',
   templateUrl: './driver-component.component.html',
   styleUrls: ['./driver-component.component.scss'],
-
 })
-export class DriverComponent
-  implements OnInit, OnDestroy {
+export class DriverComponent implements OnInit {
   form: FormGroup = this.formBuilder.group(
     {
       lastName: ['', [Validators.required]],
@@ -29,36 +27,15 @@ export class DriverComponent
       oldDriverLicence: [false, []],
       isInsured: [false, []],
     },
-    { validators: this.startExpDateValidator('startExpDate', 'birthday') },
+    { validators: startExpDateValidator('startExpDate', 'birthday') }
   );
 
   constructor(private formBuilder: FormBuilder) {
-  }
-
-  private startExpDateValidator(
-    from: string,
-    to: string,
-  ): (group: FormGroup) => { [p: string]: boolean } | null {
-    return (group: FormGroup): { [key: string]: boolean } => {
-      const date1 = new Date(group.controls[from].value).getTime();
-      const date2 = new Date(group.controls[to].value).getTime();
-      const fullYearsOfExp = (date1 - date2) / (24 * 3600 * 1000 * 365);
-
-      if (fullYearsOfExp < 16) {
-        return {
-          dates: true,
-        };
-      }
-      return {};
-    };
   }
 
   ngOnInit(): void {
     setTimeout(() => {
       this.form.updateValueAndValidity();
     }, 100);
-  }
-
-  ngOnDestroy(): void {
   }
 }

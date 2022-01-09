@@ -1,44 +1,42 @@
-<table *ngFor=" let driverData of this.driversData">
+<table *ngFor="let driverData of this.driversData">
   <tr>
     <th>Ключ</th>
     <th>Значение</th>
   </tr>
   <tr>
     <td>Фамилия</td>
-    <td>{{driverData.firstName}}</td>
+    <td>{{ driverData.firstName }}</td>
   </tr>
   <tr>
     <td>Имя</td>
-    <td>{{driverData.lastName}}</td>
+    <td>{{ driverData.lastName }}</td>
   </tr>
   <tr>
     <td>Отчество</td>
-    <td>{{driverData.middleName}}</td>
+    <td>{{ driverData.middleName }}</td>
   </tr>
   <tr>
     <td>Дата рождения</td>
-    <td>{{driverData.birthday}}</td>
+    <td>{{ driverData.birthday }}</td>
   </tr>
   <tr>
     <td>Иностранец</td>
-    <td>{{driverData.foreigner}}</td>
+    <td>{{ driverData.foreigner }}</td>
   </tr>
   <tr>
-    <td>В/У:
-    </td>
-    <td>{{driverData.driverLicence}}</td>
+    <td>В/У:</td>
+    <td>{{ driverData.driverLicence }}</td>
   </tr>
   <tr>
-    <td>Дата начала стажа
-    </td>
-    <td>{{driverData.startExpDate}}</td>
+    <td>Дата начала стажа</td>
+    <td>{{ driverData.startExpDate }}</td>
   </tr>
   <tr>
     <td>Предыдущее ВУ</td>
-    <td>{{driverData.oldDriverLicence}}</td>
+    <td>{{ driverData.oldDriverLicence }}</td>
   </tr>
   <tr>
     <td>Является страхователем</td>
-    <td>{{driverData.isInsured}}</td>
+    <td>{{ driverData.isInsured }}</td>
   </tr>
 </table>

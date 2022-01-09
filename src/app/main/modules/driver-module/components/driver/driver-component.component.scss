@@ -25,7 +25,8 @@ form {
   margin-bottom: 20px;
   margin-right: 20px;
 
-  input[type="text"], input[type="date"] {
+  input[type="text"],
+  input[type="date"] {
     margin-top: 5px;
     height: 40px;
     border-radius: 3px;
@@ -42,8 +43,7 @@ input.ng-touched.ng-valid {
   border: solid green 2px;
 }
 
-input.ng-touched.ng-invalid,
-{
+input.ng-touched.ng-invalid {
   border: solid red 2px;
 }
 

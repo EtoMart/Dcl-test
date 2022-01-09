@@ -5,8 +5,7 @@ import { DriverDataInterface } from '../interfaces/form-data';
   providedIn: 'root',
 })
 export class FormService {
-  constructor() {
-  }
+  constructor() {}
 
   public drivers: DriverDataInterface[] = [
     {
