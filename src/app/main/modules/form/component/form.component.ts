@@ -31,6 +31,30 @@ export class FormComponent
     private route: Router
   ) {}
 
+  private checkValidateOfForms(): boolean {
+    let isValid = true;
+    const components = this.driverComponents.toArray();
+    for (const component of components) {
+      if (!component.form.valid) {
+        this.markAsTouchedAllControls(component.form);
+        isValid = false;
+      }
+    }
+    return isValid;
+  }
+
+  private initialDriverChange(): void {
+    this.drivers = this.formService.getDrivers();
+    this.changeDriversCount(this.drivers.length);
+  }
+
+  private getDrivers(): void {
+    this.driverComponents.toArray().forEach((component, index) => {
+      component.form.setValue(this.drivers[index]);
+      this.cdRef.detectChanges();
+    });
+  }
+
   public changeDriversCount(numberOfDrivers: number): void {
     const tempArray = [];
     for (let i = 0; i < numberOfDrivers; i++) {
@@ -63,36 +87,11 @@ export class FormComponent
     this.addDrivers();
   }
 
-  private checkValidateOfForms(): boolean {
-    let isValid = true;
-    const components = this.driverComponents.toArray();
-    for (const component of components) {
-      if (!component.form.valid) {
-        this.markAsTouchedAllControls(component.form);
-        isValid = false;
-      }
-    }
-    return isValid;
-  }
-
-  private initialDriverChange(): void {
-    this.drivers = this.formService.getDrivers();
-    this.changeDriversCount(this.drivers.length);
-  }
-
-  private getDrivers(): void {
-    const components = this.driverComponents.toArray();
-    for (let i = 0; i < components.length; i++) {
-      components[i].form.setValue(this.drivers[i]);
-      this.cdRef.detectChanges();
-    }
-  }
-
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.initialDriverChange();
   }
 
-  ngAfterViewInit(): void {
+  public ngAfterViewInit(): void {
     this.getDrivers();
     this.cdRef.detectChanges();
   }

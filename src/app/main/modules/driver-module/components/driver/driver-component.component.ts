@@ -15,7 +15,7 @@ import { startExpDateValidator } from 'src/app/main/modules/driver-module/compon
   styleUrls: ['./driver-component.component.scss'],
 })
 export class DriverComponent implements OnInit {
-  form: FormGroup = this.formBuilder.group(
+  public form: FormGroup = this.formBuilder.group(
     {
       lastName: ['', [Validators.required]],
       firstName: ['', [Validators.required]],
@@ -33,9 +33,6 @@ export class DriverComponent implements OnInit {
   constructor(private formBuilder: FormBuilder) {
   }
 
-  ngOnInit(): void {
-    setTimeout(() => {
-      this.form.updateValueAndValidity();
-    }, 100);
+  public ngOnInit(): void {
   }
 }
