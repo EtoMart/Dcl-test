@@ -23,7 +23,7 @@ export class FormComponent
 {
   @ViewChildren('driverComponent') driverComponents: QueryList<DriverComponent>;
   drivers = [];
-  driversCount = [0];
+  driversComponentsCount = [0];
 
   constructor(
     private formService: FormService,
@@ -60,7 +60,7 @@ export class FormComponent
     for (let i = 0; i < numberOfDrivers; i++) {
       tempArray.push(i);
     }
-    this.driversCount = tempArray;
+    this.driversComponentsCount = tempArray;
   }
 
   public markAsTouchedAllControls(form: FormGroup): void {
