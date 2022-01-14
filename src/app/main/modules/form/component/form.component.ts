@@ -8,28 +8,28 @@ import {
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { FormService } from '../../../services/form.service';
 import { DriverComponent } from 'src/app/main/modules/driver-module/components/driver/driver-component.component';
+import { FormService } from '../../../services/form.service';
 
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss'],
 })
-export class FormComponent
-  implements
-    OnInit,
-    AfterViewInit
-{
-  @ViewChildren('driverComponent') driverComponents: QueryList<DriverComponent>;
-  drivers = [];
-  driversComponentsCount = [0];
+export class FormComponent implements OnInit, AfterViewInit {
+
+  @ViewChildren('driverComponent')
+  public driverComponents: QueryList<DriverComponent>;
+
+  public drivers = [];
+  public driversComponents = [0];
 
   constructor(
     private formService: FormService,
     private cdRef: ChangeDetectorRef,
-    private route: Router
-  ) {}
+    private route: Router,
+  ) {
+  }
 
   private checkValidateOfForms(): boolean {
     let isValid = true;
@@ -60,7 +60,7 @@ export class FormComponent
     for (let i = 0; i < numberOfDrivers; i++) {
       tempArray.push(i);
     }
-    this.driversComponentsCount = tempArray;
+    this.driversComponents = tempArray;
   }
 
   public markAsTouchedAllControls(form: FormGroup): void {
@@ -70,21 +70,21 @@ export class FormComponent
     }
   }
 
-  public addDrivers(): void {
+  public async saveDrivers(): Promise<void> {
     const components = this.driverComponents.toArray();
     const formsData = [];
     for (const component of components) {
       formsData.push(component.form.value);
     }
     this.formService.addDriver(formsData);
-    this.route.navigateByUrl('/result');
+    await this.route.navigateByUrl('/result');
   }
 
   public submit(): void {
     if (!this.checkValidateOfForms()) {
       return;
     }
-    this.addDrivers();
+    this.saveDrivers();
   }
 
   public ngOnInit(): void {
