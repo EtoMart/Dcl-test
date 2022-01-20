@@ -71,6 +71,10 @@
           <p>КБМ: <span *ngIf="form.valid"> 1,55</span></p>
         </div>
       </div>
+      <div class="sex">
+        <button>М</button>
+        <button>Ж</button>
+      </div>
     </div>
   </fieldset>
   <div *ngIf="form.controls['lastName'].invalid && form.controls['lastName'].touched"

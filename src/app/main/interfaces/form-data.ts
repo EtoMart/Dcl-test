@@ -8,4 +8,5 @@ export interface DriverDataInterface {
   startExpDate: string;
   oldDriverLicence: boolean;
   isInsured: boolean;
+  sex: string;
 }

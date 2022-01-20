@@ -18,6 +18,7 @@ export class FormService {
       middleName: '',
       oldDriverLicence: false,
       startExpDate: '',
+      sex: 'male',
     },
   ];
 

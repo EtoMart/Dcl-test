@@ -26,6 +26,7 @@ export class DriverComponent implements OnInit {
       startExpDate: ['', [Validators.required]],
       oldDriverLicence: [false, []],
       isInsured: [false, []],
+      sex: ['male', []],
     },
     { validators: startExpDateValidator('startExpDate', 'birthday') }
   );
