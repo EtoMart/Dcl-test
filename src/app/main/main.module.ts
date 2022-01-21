@@ -6,10 +6,13 @@ import { SelectSexDirective } from './directives/select-sex.directive';
 
 @NgModule({
   declarations: [
-    SelectSexDirective
+    SelectSexDirective,
   ],
   imports: [CommonModule,
-            ReactiveFormsModule,
-            RouterModule],
+    ReactiveFormsModule,
+    RouterModule],
+  exports: [
+    SelectSexDirective,
+  ],
 })
 export class MainModule {}
