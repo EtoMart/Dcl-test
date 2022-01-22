@@ -22,7 +22,7 @@
       </div>
       <div class="formControl">
         <label for="middleName">Отчество (при наличии):</label>
-        <input appSelectSex (childEvent)="changeSex($event)"
+        <input appSelectSex (childEvent)="validateSex($event)"
                formControlName="middleName"
                id="middleName"
                type="text" />
@@ -73,8 +73,8 @@
         </div>
       </div>
       <div class="sex">
-        <button [ngClass]="{active: form.controls.sex.value === 'male'}">М</button>
-        <button [ngClass]="{active: form.controls.sex.value === 'female'}" >Ж</button>
+        <button [ngClass]="{active: form.controls.sex.value === 'male'}" (click)="changeSex()">М</button>
+        <button [ngClass]="{active: form.controls.sex.value === 'female'}" (click)="changeSex()">Ж</button>
       </div>
     </div>
   </fieldset>

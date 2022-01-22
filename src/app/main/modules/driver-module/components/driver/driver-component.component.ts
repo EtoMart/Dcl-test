@@ -34,8 +34,16 @@ export class DriverComponent implements OnInit {
   constructor(private formBuilder: FormBuilder) {
   }
 
-  public changeSex(sex: string): void{
-    if (sex === 'male') {
+  public validateSex(sex: string): void {
+    if (sex === this.form.controls.sex.value){
+      return;
+    } else {
+      this.changeSex();
+    }
+  }
+
+  public changeSex(): void{
+    if (this.form.controls.sex.value !== 'male') {
       this.form.controls.sex.setValue('male');
     }else {
       this.form.controls.sex.setValue('female');
