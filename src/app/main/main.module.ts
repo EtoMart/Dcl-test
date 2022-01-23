@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { SelectSexDirective } from './directives/select-sex.directive';
+import { HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -10,7 +11,8 @@ import { SelectSexDirective } from './directives/select-sex.directive';
   ],
   imports: [CommonModule,
     ReactiveFormsModule,
-    RouterModule],
+    RouterModule,
+    HttpClientModule],
   exports: [
     SelectSexDirective,
   ],

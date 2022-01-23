@@ -51,7 +51,14 @@ export class FormComponent implements OnInit, AfterViewInit {
   private getDrivers(): void {
     this.driverComponents.toArray().forEach((component, index) => {
       component.form.setValue(this.drivers[index]);
+      component.httpDriverPost();
       this.cdRef.detectChanges();
+    });
+  }
+
+  public resetForms(): void {
+    this.driverComponents.toArray().forEach((component) => {
+      component.form.reset();
     });
   }
 
