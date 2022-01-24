@@ -62,6 +62,12 @@ export class FormComponent implements OnInit, AfterViewInit {
     });
   }
 
+  public getDriversFromComponentsByID(): void {
+    this.driverComponents.toArray().forEach((component) => {
+      component.getHttpDriver();
+    });
+  }
+
   public changeDriversCount(numberOfDrivers: number): void {
     const tempArray = [];
     for (let i = 0; i < numberOfDrivers; i++) {

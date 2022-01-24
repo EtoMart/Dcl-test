@@ -11,6 +11,7 @@ import {
 import { Subscription } from 'rxjs';
 
 import { DriverDataInterface } from 'src/app/main/interfaces/form-data';
+import { HttpDriverData } from 'src/app/main/interfaces/http-driver-data';
 import { startExpDateValidator } from 'src/app/main/modules/driver-module/components/driver/validators/start-exp-date.validator';
 import { HttpDriverService } from 'src/app/main/services/http-driver.service';
 
@@ -43,8 +44,11 @@ export class DriverComponent implements OnInit, OnDestroy {
   }
 
   private subscriptions: Subscription = new Subscription();
-
   public driverFromHttp;
+
+  private setForm(driver: DriverDataInterface): void {
+    this.form.setValue(driver);
+  }
 
   public validateSex(sex: string): void {
     if (sex === this.form.controls.sex.value) {
@@ -55,7 +59,6 @@ export class DriverComponent implements OnInit, OnDestroy {
   }
 
   public httpDriverPost(): void {
-    console.log('check');
     if (!this.form.valid) {
       return;
     } else {
@@ -67,6 +70,29 @@ export class DriverComponent implements OnInit, OnDestroy {
           console.log(data);
         })
       );
+    }
+  }
+
+  public getHttpDriver(): void {
+    console.log('httpDriverGet');
+    if (this.driverFromHttp.id) {
+      this.httpDriverService.getData(this.driverFromHttp.id).subscribe((data: HttpDriverData) => {
+        console.log(data);
+        const driver: DriverDataInterface = {
+          birthday: data.birth_date,
+          driverLicence: data.credential[0].number + data.credential[0].series,
+          firstName: data.first_name,
+          foreigner: false,
+          isInsured: false,
+          lastName: data.last_name,
+          middleName: data.patronymic,
+          oldDriverLicence: false,
+          startExpDate: data.driving_experience_started,
+          sex: data.gender === 'M' ? 'male' : 'female',
+        };
+        this.setForm(driver);
+
+      });
     }
   }
 
