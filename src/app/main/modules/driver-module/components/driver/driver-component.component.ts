@@ -1,7 +1,7 @@
 import {
   Component,
   OnDestroy,
-  OnInit,
+  OnInit
 } from '@angular/core';
 import {
   FormBuilder,
@@ -63,11 +63,12 @@ export class DriverComponent implements OnInit, OnDestroy {
       return;
     } else {
       const driverData: DriverDataInterface = this.form.value;
-      console.log(driverData);
       this.subscriptions.add(
         this.httpDriverService.postData(driverData).subscribe((data) => {
-          this.driverFromHttp = data;
-          console.log(data);
+          if (data.id) {
+            this.driverFromHttp = data;
+            this.httpDriverService.changeFlagToTrue();
+          }
         })
       );
     }
@@ -76,8 +77,7 @@ export class DriverComponent implements OnInit, OnDestroy {
   public getHttpDriver(): void {
     console.log('httpDriverGet');
     if (this.driverFromHttp.id) {
-      this.httpDriverService.getData(this.driverFromHttp.id).subscribe((data: HttpDriverData) => {
-        console.log(data);
+      this.subscriptions.add(this.httpDriverService.getData(this.driverFromHttp.id).subscribe((data: HttpDriverData) => {
         const driver: DriverDataInterface = {
           birthday: data.birth_date,
           driverLicence: data.credential[0].number + data.credential[0].series,
@@ -91,8 +91,8 @@ export class DriverComponent implements OnInit, OnDestroy {
           sex: data.gender === 'M' ? 'male' : 'female',
         };
         this.setForm(driver);
+      }));
 
-      });
     }
   }
 

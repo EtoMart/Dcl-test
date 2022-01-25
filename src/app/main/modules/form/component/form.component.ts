@@ -2,13 +2,16 @@ import {
   AfterViewInit,
   ChangeDetectorRef,
   Component,
+  OnDestroy,
   OnInit,
   QueryList,
   ViewChildren,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { DriverComponent } from 'src/app/main/modules/driver-module/components/driver/driver-component.component';
+import { HttpDriverService } from 'src/app/main/services/http-driver.service';
 import { FormService } from '../../../services/form.service';
 
 @Component({
@@ -16,20 +19,21 @@ import { FormService } from '../../../services/form.service';
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss'],
 })
-export class FormComponent implements OnInit, AfterViewInit {
+export class FormComponent implements OnInit, AfterViewInit, OnDestroy {
+  private subscriptions: Subscription = new Subscription();
 
   @ViewChildren('driverComponent')
   public driverComponents: QueryList<DriverComponent>;
-
   public drivers = [];
   public driversComponents = [0];
+  public driverIdFlag = false;
 
   constructor(
     private formService: FormService,
     private cdRef: ChangeDetectorRef,
     private route: Router,
-  ) {
-  }
+    private httpDriverService: HttpDriverService
+  ) {}
 
   private checkValidateOfForms(): boolean {
     let isValid = true;
@@ -56,6 +60,16 @@ export class FormComponent implements OnInit, AfterViewInit {
     });
   }
 
+  public checkDriverId(): void {
+    this.subscriptions.add(
+      this.httpDriverService.driverIdFlag$.subscribe((data) => {
+        if (data) {
+          this.driverIdFlag = true;
+        }
+      })
+    );
+  }
+
   public resetForms(): void {
     this.driverComponents.toArray().forEach((component) => {
       component.form.reset();
@@ -64,6 +78,9 @@ export class FormComponent implements OnInit, AfterViewInit {
 
   public getDriversFromComponentsByID(): void {
     this.driverComponents.toArray().forEach((component) => {
+      if (!component.driverFromHttp) {
+        return;
+      }
       component.getHttpDriver();
     });
   }
@@ -102,6 +119,7 @@ export class FormComponent implements OnInit, AfterViewInit {
 
   public ngOnInit(): void {
     this.initialDriverChange();
+    this.checkDriverId();
   }
 
   public ngAfterViewInit(): void {
@@ -109,4 +127,7 @@ export class FormComponent implements OnInit, AfterViewInit {
     this.cdRef.detectChanges();
   }
 
+  public ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
 }

@@ -1,6 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import {
+  BehaviorSubject,
+  Observable,
+} from 'rxjs';
 import { DriverDataInterface } from 'src/app/main/interfaces/form-data';
 import { driverHttpAuthToken } from 'src/environments/environment';
 import { HttpDriverData } from 'src/app/main/interfaces/http-driver-data';
@@ -8,11 +11,19 @@ import { HttpDriverData } from 'src/app/main/interfaces/http-driver-data';
 @Injectable({
   providedIn: 'root',
 })
+
 export class HttpDriverService {
   constructor(private http: HttpClient) {}
 
+  private driverIdFlag = false;
+  public driverIdFlag$ = new BehaviorSubject(this.driverIdFlag);
+
+  public changeFlagToTrue(): void{
+    this.driverIdFlag = true;
+    this.driverIdFlag$.next(true);
+  }
+
   public postData(driverData: DriverDataInterface): Observable<HttpDriverData> {
-    console.log('HttpPostData');
     const body = {
       last_name: driverData.lastName,
       first_name: driverData.firstName,

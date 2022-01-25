@@ -16,5 +16,5 @@
 
   <button (click)="submit()" type="button">отправить</button>
   <button (click)="resetForms()" type="button">reset form(s)</button>
-  <button (click)="getDriversFromComponentsByID()" type="button">Get drivers</button>
+  <button (click)="getDriversFromComponentsByID()" [disabled]="!driverIdFlag" type="button">Get drivers</button>
 </div>
