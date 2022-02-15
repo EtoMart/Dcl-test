@@ -1,0 +1,95 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import {
+  BehaviorSubject,
+  from,
+  Observable,
+} from 'rxjs';
+import { map } from 'rxjs/operators';
+import { DriverDataInterface } from 'src/app/main/interfaces/form-data';
+import { driverHttpAuthToken } from 'src/environments/environment';
+import { HttpDriverData } from 'src/app/main/interfaces/http-driver-data';
+
+@Injectable({
+  providedIn: 'root',
+})
+
+export class HttpDriverService {
+  constructor(private http: HttpClient) {}
+
+  private driverIdFlag = false;
+  public driverIdFlag$ = new BehaviorSubject(this.driverIdFlag);
+
+  public changeFlagToTrue(): void{
+    this.driverIdFlag = true;
+    this.driverIdFlag$.next(true);
+  }
+
+  public postData(driverData: DriverDataInterface): Observable<HttpDriverData> {
+    const body = {
+      last_name: driverData.lastName,
+      first_name: driverData.firstName,
+      patronymic: driverData.middleName,
+      birth_date: driverData.birthday,
+      credential: [
+        {
+          credential_type: 'DRIVER_LICENSE',
+          series: driverData.driverLicence.slice(0, 4),
+          number: driverData.driverLicence.slice(4, 10),
+          issue_date: driverData.startExpDate,
+        },
+      ],
+      address: [],
+      contact: [],
+      driving_experience_started: driverData.startExpDate,
+    };
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: driverHttpAuthToken.token,
+      }),
+    };
+    return this.http
+      .post(
+        'https://market.polismarket.store/v2/insured_objects/drivers',
+        body,
+        options
+      );
+  }
+
+  private getDataFromHttp(id: string): Observable<HttpDriverData> {
+    console.log('getData', id);
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: driverHttpAuthToken.token,
+      }),
+    };
+    return this.http
+      .get(`https://market.polismarket.store/v2/insured_objects/drivers/${id}`, options);
+  }
+
+  public getData(id: string): Observable<DriverDataInterface> {
+
+    return from(this.getDataFromHttp(id)).pipe(
+      map( (data: HttpDriverData) => {
+        const driver: DriverDataInterface = {
+          birthday: data.birth_date,
+          driverLicence: data.credential[0].number + data.credential[0].series,
+          firstName: data.first_name,
+          foreigner: false,
+          isInsured: false,
+          lastName: data.last_name,
+          middleName: data.patronymic,
+          oldDriverLicence: false,
+          startExpDate: data.driving_experience_started,
+          sex: data.gender === 'M' ? 'male' : 'female',
+        };
+        return driver;
+      }
+
+      ));
+
+
+  }
+}

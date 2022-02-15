@@ -6,6 +6,10 @@ export const environment = {
   production: false
 };
 
+export const driverHttpAuthToken = {
+  token: 'Token a42fb1ae4b4973a8e241ac2d57991c8a7a25a0a7'
+};
+
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

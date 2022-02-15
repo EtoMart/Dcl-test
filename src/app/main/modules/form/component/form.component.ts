@@ -1,83 +1,133 @@
 import {
-  AfterContentChecked,
+  AfterViewInit,
   ChangeDetectorRef,
   Component,
+  OnDestroy,
   OnInit,
+  QueryList,
+  ViewChildren,
 } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { DriverComponent } from 'src/app/main/modules/driver-module/components/driver/driver-component.component';
+import { HttpDriverService } from 'src/app/main/services/http-driver.service';
 import { FormService } from '../../../services/form.service';
-import { FormBuilder } from '@angular/forms';
-import { DriverDataInterface } from '../../../interfaces/form-data';
 
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss'],
 })
-export class FormComponent implements OnInit, AfterContentChecked {
-  driversCount = 1;
+export class FormComponent implements OnInit, AfterViewInit, OnDestroy {
+  private subscriptions: Subscription = new Subscription();
+
+  @ViewChildren('driverComponent')
+  public driverComponents: QueryList<DriverComponent>;
+  public drivers = [];
+  public driversComponents = [0];
+  public driverIdFlag = false;
 
   constructor(
     private formService: FormService,
-    private formBuilder: FormBuilder,
     private cdRef: ChangeDetectorRef,
+    private route: Router,
+    private httpDriverService: HttpDriverService
   ) {}
 
-  public parentForm = this.formBuilder.group({
-    driver1: [],
-    driver2: [],
-    driver3: [],
-    driver4: [],
-    driver5: [],
-  });
-
-  public changeDriversCount(numberOfDrivers: number): void {
-    this.driversCount = numberOfDrivers;
-    for (let i = 1; i <= this.driversCount; i++) {
-      this.parentForm.get(`driver${i}`).enable();
-    }
-    for (let i = 5; i > this.driversCount; i--) {
-      if (this.driversCount === 5) {
-        return;
+  private checkValidateOfForms(): boolean {
+    let isValid = true;
+    const components = this.driverComponents.toArray();
+    for (const component of components) {
+      if (!component.form.valid) {
+        this.markAsTouchedAllControls(component.form);
+        isValid = false;
       }
-      this.parentForm.get(`driver${i}`).disable();
     }
-    this.parentForm.updateValueAndValidity();
+    return isValid;
+  }
+
+  private initialDriverChange(): void {
+    this.drivers = this.formService.getDrivers();
+    this.changeDriversCount(this.drivers.length);
   }
 
   private getDrivers(): void {
-    const drivers = this.formService.getDrivers();
-    this.driversCount = drivers.length;
-    for (let i = 1; i < drivers.length + 1; i++) {
-      this.parentForm.get(`driver${i}`).setValue(drivers[i - 1]);
+    this.driverComponents.toArray().forEach((component, index) => {
+      component.form.setValue(this.drivers[index]);
+      component.httpDriverPost();
+      this.cdRef.detectChanges();
+    });
+  }
+
+  public checkDriverId(): void {
+    this.subscriptions.add(
+      this.httpDriverService.driverIdFlag$.subscribe((data) => {
+        if (data) {
+          this.driverIdFlag = true;
+        }
+      })
+    );
+  }
+
+  public resetForms(): void {
+    this.driverComponents.toArray().forEach((component) => {
+      component.form.reset();
+    });
+  }
+
+  public getDriversFromComponentsByID(): void {
+    this.driverComponents.toArray().forEach((component) => {
+      if (!component.driverFromHttp) {
+        return;
+      }
+      component.getHttpDriver();
+    });
+  }
+
+  public changeDriversCount(numberOfDrivers: number): void {
+    const tempArray = [];
+    for (let i = 0; i < numberOfDrivers; i++) {
+      tempArray.push(i);
+    }
+    this.driversComponents = tempArray;
+  }
+
+  public markAsTouchedAllControls(form: FormGroup): void {
+    const controls = form.controls;
+    for (const controlsKey of Object.keys(controls)) {
+      form.get(controlsKey).markAsTouched();
     }
   }
 
-  public addDrivers(): void {
-    const formValues: DriverDataInterface[] = Object.values(
-      this.parentForm.value
-    );
-    const drivers: DriverDataInterface[] = [];
-    if (this.driversCount === 0) {
-      this.formService.addDriver(drivers);
-      return;
+  public async saveDrivers(): Promise<void> {
+    const components = this.driverComponents.toArray();
+    const formsData = [];
+    for (const component of components) {
+      formsData.push(component.form.value);
     }
-    for (const value of formValues) {
-      if (value !== null) {
-        drivers.push(value);
-      }
-    }
-    this.formService.addDriver(drivers);
+    this.formService.addDriver(formsData);
+    await this.route.navigateByUrl('/result');
   }
 
   public submit(): void {
-    this.addDrivers();
+    if (!this.checkValidateOfForms()) {
+      return;
+    }
+    this.saveDrivers();
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
+    this.initialDriverChange();
+    this.checkDriverId();
+  }
+
+  public ngAfterViewInit(): void {
     this.getDrivers();
+    this.cdRef.detectChanges();
   }
 
-  ngAfterContentChecked(): void {
-    this.cdRef.detectChanges();
+  public ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

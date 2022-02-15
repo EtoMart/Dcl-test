@@ -1,11 +1,11 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { ResultRoutingModule } from './result-routing.module';
+import { NgModule } from '@angular/core';
 import { ResultComponent } from './component/result.component';
+import { ResultRoutingModule } from './result-routing.module';
 
 @NgModule({
   declarations: [ResultComponent],
-  imports: [CommonModule, ResultRoutingModule],
+  imports: [CommonModule,
+            ResultRoutingModule],
 })
 export class ResultModule {}

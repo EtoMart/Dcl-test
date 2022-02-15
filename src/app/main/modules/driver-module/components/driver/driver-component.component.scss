@@ -17,6 +17,17 @@ form {
   flex-wrap: wrap;
 }
 
+.sex{
+  margin-top: 25px;
+  button{
+    height: 40px;
+    width: 90px;
+  }
+  .active{
+    background: deepskyblue;
+  }
+}
+
 .formControl {
   width: 300px;
   height: 65px;
@@ -25,7 +36,8 @@ form {
   margin-bottom: 20px;
   margin-right: 20px;
 
-  input[type="text"], input[type="date"] {
+  input[type="text"],
+  input[type="date"], {
     margin-top: 5px;
     height: 40px;
     border-radius: 3px;
@@ -38,12 +50,16 @@ form {
   width: 100%;
 }
 
+input.ng-touched.ng-valid {
+  border: solid green 2px;
+}
+
 input.ng-touched.ng-invalid {
   border: solid red 2px;
 }
 
-input.ng-touched.ng-valid {
-  border: solid green 2px;
+.custom-invalid {
+  border: solid red 2px !important;
 }
 
 input {

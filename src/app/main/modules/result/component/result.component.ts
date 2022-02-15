@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { FormService } from '../../../services/form.service';
+import { Component,
+         OnInit } from '@angular/core';
 import { DriverDataInterface } from '../../../interfaces/form-data';
+import { FormService } from '../../../services/form.service';
 
 @Component({
   selector: 'app-result',
