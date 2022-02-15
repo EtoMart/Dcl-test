@@ -9,7 +9,8 @@ import { HttpClientModule} from '@angular/common/http';
   declarations: [
     SelectSexDirective,
   ],
-  imports: [CommonModule,
+  imports: [
+    CommonModule,
     ReactiveFormsModule,
     RouterModule,
     HttpClientModule],

@@ -7,8 +7,10 @@ import { DriverComponent } from 'src/app/main/modules/driver-module/components/d
 @NgModule({
   declarations: [DriverComponent],
   exports: [DriverComponent],
-  imports: [CommonModule,
+  imports: [
+    CommonModule,
     FormsModule,
-    ReactiveFormsModule, MainModule],
+    ReactiveFormsModule,
+    MainModule],
 })
 export class DriverModule {}
