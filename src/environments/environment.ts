@@ -7,7 +7,7 @@ export const environment = {
 };
 
 export const driverHttpAuthToken = {
-  token: 'Token 57932562c42b6365801726d06464cc76bd7b68b4'
+  token: 'Token a42fb1ae4b4973a8e241ac2d57991c8a7a25a0a7'
 };
 
 /*

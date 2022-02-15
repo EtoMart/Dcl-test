@@ -2,8 +2,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
   BehaviorSubject,
+  from,
   Observable,
 } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { DriverDataInterface } from 'src/app/main/interfaces/form-data';
 import { driverHttpAuthToken } from 'src/environments/environment';
 import { HttpDriverData } from 'src/app/main/interfaces/http-driver-data';
@@ -55,7 +57,7 @@ export class HttpDriverService {
       );
   }
 
-  public getData(id: string): any {
+  private getDataFromHttp(id: string): Observable<HttpDriverData> {
     console.log('getData', id);
     const options = {
       headers: new HttpHeaders({
@@ -65,5 +67,29 @@ export class HttpDriverService {
     };
     return this.http
       .get(`https://market.polismarket.store/v2/insured_objects/drivers/${id}`, options);
+  }
+
+  public getData(id: string): Observable<DriverDataInterface> {
+
+    return from(this.getDataFromHttp(id)).pipe(
+      map( (data: HttpDriverData) => {
+        const driver: DriverDataInterface = {
+          birthday: data.birth_date,
+          driverLicence: data.credential[0].number + data.credential[0].series,
+          firstName: data.first_name,
+          foreigner: false,
+          isInsured: false,
+          lastName: data.last_name,
+          middleName: data.patronymic,
+          oldDriverLicence: false,
+          startExpDate: data.driving_experience_started,
+          sex: data.gender === 'M' ? 'male' : 'female',
+        };
+        return driver;
+      }
+
+      ));
+
+
   }
 }

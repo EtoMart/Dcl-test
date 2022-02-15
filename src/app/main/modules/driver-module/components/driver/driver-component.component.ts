@@ -9,9 +9,7 @@ import {
   Validators
 } from '@angular/forms';
 import { Subscription } from 'rxjs';
-
 import { DriverDataInterface } from 'src/app/main/interfaces/form-data';
-import { HttpDriverData } from 'src/app/main/interfaces/http-driver-data';
 import { startExpDateValidator } from 'src/app/main/modules/driver-module/components/driver/validators/start-exp-date.validator';
 import { HttpDriverService } from 'src/app/main/services/http-driver.service';
 
@@ -77,19 +75,9 @@ export class DriverComponent implements OnInit, OnDestroy {
   public getHttpDriver(): void {
     console.log('httpDriverGet');
     if (this.driverFromHttp.id) {
-      this.subscriptions.add(this.httpDriverService.getData(this.driverFromHttp.id).subscribe((data: HttpDriverData) => {
-        const driver: DriverDataInterface = {
-          birthday: data.birth_date,
-          driverLicence: data.credential[0].number + data.credential[0].series,
-          firstName: data.first_name,
-          foreigner: false,
-          isInsured: false,
-          lastName: data.last_name,
-          middleName: data.patronymic,
-          oldDriverLicence: false,
-          startExpDate: data.driving_experience_started,
-          sex: data.gender === 'M' ? 'male' : 'female',
-        };
+      this.subscriptions.add(this.httpDriverService.getData(this.driverFromHttp.id).subscribe((driver: any) => {
+        console.log(123, driver);
+
         this.setForm(driver);
       }));
 
